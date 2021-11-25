@@ -5,6 +5,7 @@ import { createStore } from "redux";
 import { Provider } from "react-redux";
 import Constants from "expo-constants";
 import DeckList from "./components/DeckList";
+import AddDeck from "./components/AddDeck";
 
 import reducer from "./reducers";
 import applyMiddleware from "./middlewares";
@@ -28,7 +29,8 @@ class App extends Component {
             backgroundColor={colors.backgroundColors.DeepChampagne}
             barStyle="light"
           />
-          <DeckList />
+          {/* <DeckList /> */}
+          <AddDeck />
         </View>
       </Provider>
     );

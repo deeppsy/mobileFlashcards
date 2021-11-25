@@ -16,7 +16,6 @@ import Deck from "./Deck";
 const Item = ({ deck }) => (
   <TouchableOpacity style={styles.item}>
     <Deck deckId={deck} />
-    {/* <Text style={styles.title}>{title}</Text> */}
   </TouchableOpacity>
 );
 

@@ -11,13 +11,24 @@ class Deck extends Component {
         <View>
           <Text style={styles.deckText}>{deck.title}</Text>
         </View>
-        <View>
-          <Text style={styles.cardText}>
-            {deck.questions.length && deck.questions.length === 1
-              ? `${deck.questions.length} card`
-              : `${deck.questions.length} cards`}
-          </Text>
-        </View>
+
+        {deck.questions.length === 0 && (
+          <View>
+            <Text style={styles.cardText}>
+              {deck.questions.length === 0 && "No cards created yet!"}
+            </Text>
+          </View>
+        )}
+
+        {deck.questions.length > 0 && (
+          <View>
+            <Text style={styles.cardText}>
+              {deck.questions.length && deck.questions.length === 1
+                ? `${deck.questions.length} card`
+                : `${deck.questions.length} cards`}
+            </Text>
+          </View>
+        )}
       </View>
     );
   }
