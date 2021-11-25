@@ -1,88 +1,34 @@
 import { StatusBar } from "expo-status-bar";
 import React, { Component } from "react";
-import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
+import { Text, View } from "react-native";
+import { createStore } from "redux";
+import { Provider } from "react-redux";
+import Constants from "expo-constants";
+import AddDeck from "./components/AddDeck";
 
-import { getDecksFromDB, getDeckFromDB } from "./utils/api";
+import reducer from "./reducers";
+import { purple } from "./utils/colors";
 
-export default class App extends Component {
-  state = {
-    text: "",
-  };
+function UdaciStatusBar({ backgroundColor, ...props }) {
+  return (
+    <View style={{ backgroundColor, height: Constants.statusBarHeight }}>
+      <StatusBar translucent backgroundColor={backgroundColor} {...props} />
+    </View>
+  );
+}
 
-  getDecks = () => {
-    this.setState(() => ({
-      text: getDecksFromDB(),
-    }));
-  };
-  getDeck = (id) => {
-    this.setState(() => ({
-      text: getDeckFromDB(id),
-    }));
-  };
-  saveDeckTitle = () => {};
-  addCardToDeck = () => {};
-  resetDeck = () => {
-    this.setState({
-      text: "",
-    });
-  };
+class App extends Component {
   render() {
+    const store = createStore(reducer);
     return (
-      <View style={styles.container}>
-        <View style={styles.space}>
-          <TouchableOpacity style={styles.button} onPress={this.getDecks}>
-            <Text>getDecks</Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity
-            style={styles.button}
-            onPress={() => this.getDeck("React")}
-          >
-            <Text>getDeck</Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity style={styles.button}>
-            <Text>saveDeckTitle</Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity style={styles.button}>
-            <Text>addCardToDeck</Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity style={styles.button} onPress={this.resetDeck}>
-            <Text>Reset Text</Text>
-          </TouchableOpacity>
+      <Provider store={store}>
+        <View style={{ flex: 1 }}>
+          <UdaciStatusBar backgroundColor={purple} barStyle="light" />
+          <AddDeck />
         </View>
-        <View>
-          <Text>{JSON.stringify(this.state.text)}</Text>
-        </View>
-      </View>
+      </Provider>
     );
   }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-    marginTop: 30,
-  },
-
-  space: {
-    flex: 1,
-    justifyContent: "space-between",
-    flexWrap: "wrap",
-    flexDirection: "row",
-    alignItems: "center",
-  },
-  button: {
-    margin: 10,
-    padding: 10,
-    borderColor: "red",
-    borderWidth: 2,
-    borderRadius: 5,
-    backgroundColor: "blue",
-  },
-});
+export default App;
