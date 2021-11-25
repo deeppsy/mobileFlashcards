@@ -8,7 +8,7 @@ import DeckList from "./components/DeckList";
 
 import reducer from "./reducers";
 import applyMiddleware from "./middlewares";
-import { purple } from "./utils/colors";
+import { colors } from "./utils/colors";
 
 function UdaciStatusBar({ backgroundColor, ...props }) {
   return (
@@ -24,7 +24,10 @@ class App extends Component {
     return (
       <Provider store={store}>
         <View style={{ flex: 1 }}>
-          <UdaciStatusBar backgroundColor={purple} barStyle="light" />
+          <UdaciStatusBar
+            backgroundColor={colors.backgroundColors.DeepChampagne}
+            barStyle="light"
+          />
           <DeckList />
         </View>
       </Provider>

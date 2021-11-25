@@ -1,17 +1,18 @@
 import React, { Component } from "react";
-import { View, Text } from "react-native";
+import { View, Text, StyleSheet } from "react-native";
 import { connect } from "react-redux";
+import { colors } from "../utils/colors";
 
 class Deck extends Component {
   render() {
     const { deck } = this.props;
     return (
-      <View>
+      <View style={styles.deckContainer}>
         <View>
-          <Text>{deck.title}</Text>
+          <Text style={styles.deckText}>{deck.title}</Text>
         </View>
         <View>
-          <Text>
+          <Text style={styles.cardText}>
             {deck.questions.length && deck.questions.length === 1
               ? `${deck.questions.length} card`
               : `${deck.questions.length} cards`}
@@ -21,6 +22,24 @@ class Deck extends Component {
     );
   }
 }
+
+const styles = StyleSheet.create({
+  deckContainer: {
+    alignItems: "center",
+    justifyContent: "center",
+
+    marginBottom: 10,
+  },
+  deckText: {
+    fontSize: 28,
+    color: "green",
+  },
+  cardText: {
+    fontSize: 18,
+    color: colors.foregroundColors.orange,
+  },
+});
+
 function mapStateToProps(state, { deckId }) {
   const deck = state[deckId];
   return { deck };

@@ -10,7 +10,7 @@ import {
 } from "react-native";
 import { connect } from "react-redux";
 import { handleInitialData } from "../actions";
-import { lightPurp } from "../utils/colors";
+import { colors } from "../utils/colors";
 import Deck from "./Deck";
 
 const Item = ({ deck }) => (
@@ -31,6 +31,7 @@ class AddDeck extends Component {
 
     return (
       <SafeAreaView style={styles.container}>
+        <Text style={styles.title}>Mobile FlashCards</Text>
         <FlatList
           data={DATA}
           renderItem={this.renderItem}
@@ -44,15 +45,20 @@ class AddDeck extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    marginVertical: 10,
   },
   item: {
-    backgroundColor: lightPurp,
+    backgroundColor: colors.backgroundColors.TeaGreen,
+    justifyContent: "center",
+    alignItems: "center",
     padding: 20,
     marginVertical: 8,
     marginHorizontal: 16,
   },
   title: {
     fontSize: 32,
+    textAlign: "center",
+    color: colors.foregroundColors.maximumRed,
   },
 });
 
