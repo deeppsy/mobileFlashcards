@@ -14,6 +14,7 @@ import {
 import { connect } from "react-redux";
 import { addDeck } from "../actions";
 import { saveDeckTitleToDB } from "../utils/api";
+import { handleAddDeck } from "../actions";
 
 class AddDeck extends Component {
   state = {
@@ -28,10 +29,11 @@ class AddDeck extends Component {
 
   handleSubmit = () => {
     const { text } = this.state;
+    const { dispatch } = this.props;
 
-    addDeck(text);
+    dispatch(handleAddDeck(text));
+    dispatch(addDeck(text));
 
-    saveDeckTitleToDB(text);
     //TODO: navigate to home
     this.setState({ text: "" });
   };
@@ -49,6 +51,7 @@ class AddDeck extends Component {
             <TextInput
               placeholder="Deck Title"
               style={styles.textInput}
+              value={this.state.text}
               onChangeText={(newText) => this.handleChange(newText)}
               onSubmitEditing={this.handleSubmit}
               autoCapitalize="words"

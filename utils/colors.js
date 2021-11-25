@@ -18,3 +18,6 @@ export const colors = {
     BabyPowder: "#fffffc",
   },
 };
+
+export const purple = "purple";
+export const white = "white";
