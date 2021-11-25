@@ -1,4 +1,4 @@
-const data = {
+export const decks = {
   React: {
     title: "React",
     questions: [
@@ -23,5 +23,3 @@ const data = {
     ],
   },
 };
-
-export default data;

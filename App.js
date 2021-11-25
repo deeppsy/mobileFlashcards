@@ -4,9 +4,10 @@ import { Text, View } from "react-native";
 import { createStore } from "redux";
 import { Provider } from "react-redux";
 import Constants from "expo-constants";
-import AddDeck from "./components/AddDeck";
+import DeckList from "./components/DeckList";
 
 import reducer from "./reducers";
+import applyMiddleware from "./middlewares";
 import { purple } from "./utils/colors";
 
 function UdaciStatusBar({ backgroundColor, ...props }) {
@@ -19,12 +20,12 @@ function UdaciStatusBar({ backgroundColor, ...props }) {
 
 class App extends Component {
   render() {
-    const store = createStore(reducer);
+    const store = createStore(reducer, applyMiddleware);
     return (
       <Provider store={store}>
         <View style={{ flex: 1 }}>
           <UdaciStatusBar backgroundColor={purple} barStyle="light" />
-          <AddDeck />
+          <DeckList />
         </View>
       </Provider>
     );

@@ -1,31 +1,30 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-import Data from "./_Data";
+import { decks } from "./_Data";
 
 export const DECKS_STORAGE_KEY = "MOBILEFLASHCARDS:DECKS";
 
-export function getDecksFromDB() {
-  return AsyncStorage.getItem(DECKS_STORAGE_KEY)
-    .then((res) => {
-      if (res === "null") {
-        AsyncStorage.setItem(DECKS_STORAGE_KEY, JSON.stringify(Data));
-        return Data;
-      }
-      return JSON.parse(res);
-    })
-    .catch((e) => {
-      console.warn("Unable to get decks", e);
-    });
-}
+export async function getDecksFromDB() {
+  try {
+    await AsyncStorage.removeItem(DECKS_STORAGE_KEY);
+    const storeResults = await AsyncStorage.getItem(DECKS_STORAGE_KEY);
 
-export function getDeckFromDB(id) {
-  return AsyncStorage.getItem(DECKS_STORAGE_KEY)
-    .then((res) => {
-      return JSON.parse(res)[id];
-    })
-    .catch((e) => {
-      console.warn(`Unable to get deck ${id}`, e);
-    });
+    if (storeResults === null) {
+      AsyncStorage.setItem(DECKS_STORAGE_KEY, JSON.stringify(decks));
+    }
+
+    return storeResults === null ? decks : JSON.parse(storeResults);
+  } catch (err) {
+    console.log(err);
+  }
+}
+export async function getDeckFromDB(id) {
+  try {
+    const res = await AsyncStorage.getItem(DECKS_STORAGE_KEY);
+    return JSON.parse(res)[id];
+  } catch (e) {
+    console.warn(`Unable to get deck ${id}`, e);
+  }
 }
 
 export function saveDeckTitleToDB(title) {
@@ -44,42 +43,43 @@ export function saveDeckTitleToDB(title) {
     });
 }
 
-export function removeDeckFromDB(key) {
-  return AsyncStorage.getItem(DECKS_STORAGE_KEY)
-    .then((res) => {
-      const data = JSON.parse(res);
-      data[key] = undefined;
-      delete data[key];
-      AsyncStorage.setItem(DECKS_STORAGE_KEY, JSON.stringify(data));
-    })
-    .catch((e) => {
-      console.warn(`unable to remove deck ${key}`, e);
-    });
+export async function removeDeckFromDB(key) {
+  try {
+    const res = await AsyncStorage.getItem(DECKS_STORAGE_KEY);
+    const data = JSON.parse(res);
+    data[key] = undefined;
+    delete data[key];
+    AsyncStorage.setItem(DECKS_STORAGE_KEY, JSON.stringify(data));
+  } catch (e) {
+    console.warn(`unable to remove deck ${key}`, e);
+  }
 }
 
-export function addCardToDeck(title, card) {
-  return AsyncStorage.getItem(DECKS_STORAGE_KEY)
-    .then((res) => {
-      const data = JSON.parse(res);
-      const deck = data[title];
+export async function addCardToDeck(title, card) {
+  try {
+    const res = await AsyncStorage.getItem(DECKS_STORAGE_KEY);
+    const data = JSON.parse(res);
+    const deck = data[title];
 
-      const updatedQuestions = [...deck.questions, card];
-
-      return AsyncStorage.mergeItem(
-        DECKS_STORAGE_KEY,
-        JSON.stringify({
-          [title]: {
-            title,
-            quuestions: updatedQuestions,
-          },
-        })
-      );
-    })
-    .catch((e) => console.warn(`Unable to add new card to deck ${title} `, e));
+    const updatedQuestions = [...deck.questions, card];
+    return await AsyncStorage.mergeItem(
+      DECKS_STORAGE_KEY,
+      JSON.stringify({
+        [title]: {
+          title,
+          quuestions: updatedQuestions,
+        },
+      })
+    );
+  } catch (e) {
+    console.warn(`Unable to add new card to deck ${title} `, e);
+  }
 }
 
-export function resetDecks() {
-  return AsyncStorage.removeItem(DECKS_STORAGE_KEY).catch((e) =>
-    console.warn("Unable to reset decks")
-  );
+export async function resetDecks() {
+  try {
+    return await AsyncStorage.removeItem(DECKS_STORAGE_KEY);
+  } catch (e) {
+    return console.warn("Unable to reset decks");
+  }
 }

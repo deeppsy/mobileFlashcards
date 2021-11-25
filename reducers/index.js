@@ -6,7 +6,7 @@ import {
   RESET_STORE,
 } from "../actions/";
 
-import { data } from "../utils/_Data";
+import { decks as INITIAL_STATE } from "../utils/_Data";
 
 function decks(state = {}, action) {
   switch (action.type) {
@@ -37,14 +37,14 @@ function decks(state = {}, action) {
       const { deckId, card } = action;
       return {
         ...state,
-        [deck]: {
-          ...state[deck],
-          questions: [...state[deck].questions].concat(card),
+        [deckId]: {
+          ...state[deckId],
+          questions: [...state[deckId].questions].concat(card),
         },
       };
 
     case RESET_STORE:
-      return (INITIAL_STATE = data);
+      return INITIAL_STATE;
     default:
       return state;
   }
