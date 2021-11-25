@@ -1,6 +1,6 @@
 import { StatusBar } from "expo-status-bar";
 import React, { Component } from "react";
-import { Text, View } from "react-native";
+import { ScrollView, Text, View } from "react-native";
 import { createStore } from "redux";
 import { Provider } from "react-redux";
 import Constants from "expo-constants";
@@ -28,18 +28,18 @@ const RouteConfigs = {
     name: "DeckList",
     component: DeckList,
     options: {
-      tabBarIcon: ({ color }) => (
-        <AntDesign name="home" size={30} color={color} />
+      tabBarIcon: ({ color, size }) => (
+        <AntDesign name="home" size={size} color={color} />
       ),
-      title: "DeckList",
+      title: "Decks",
     },
   },
   AddDeck: {
     component: AddDeck,
     name: "Add Deck",
     options: {
-      tabBarIcon: ({ color }) => (
-        <Ionicons name="add-circle-outline" size={30} color={color} />
+      tabBarIcon: ({ color, size }) => (
+        <Ionicons name="add-circle-outline" size={size} color={color} />
       ),
       title: "Add Deck",
     },
@@ -50,9 +50,12 @@ const TabNavigatorConfig = {
   navigationOptions: {
     header: null,
   },
+  initialRouteName: "DeckList",
+  backBehavior: "history",
   screenOptions: {
     tabBarActiveTintColor: colors.foregroundColors.maximumRed,
     tabBarInactiveTintColor: "black",
+    tabBarHideOnKeyboard: true,
     tabBarStyle: {
       height: 56,
       backgroundColor: colors.backgroundColors.BabyPowder,
@@ -63,9 +66,6 @@ const TabNavigatorConfig = {
       },
       shadowRadius: 6,
       shadowOpacity: 1,
-    },
-    indicatorStyle: {
-      backgroundColor: "yellow",
     },
   },
 };
@@ -82,6 +82,7 @@ class App extends Component {
             backgroundColor={colors.backgroundColors.DeepChampagne}
             barStyle="light"
           />
+
           <NavigationContainer>
             <Tab.Navigator {...TabNavigatorConfig}>
               <Tab.Screen {...RouteConfigs["DeckList"]} />
