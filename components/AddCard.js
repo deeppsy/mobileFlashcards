@@ -21,6 +21,19 @@ class AddCard extends Component {
     answer: "",
   };
 
+  componentDidMount() {
+    const { title } = this.props.route.params;
+    console.log(title);
+    this.setTitle(title);
+  }
+
+  setTitle = (title) => {
+    if (!title) return;
+    this.props.navigation.setOptions({
+      title: `Add new card to ${title}`,
+    });
+  };
+
   handleSubmit = () => {
     const { title: deckId } = this.props.route.params;
 
