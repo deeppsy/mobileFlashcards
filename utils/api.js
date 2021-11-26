@@ -6,7 +6,7 @@ export const DECKS_STORAGE_KEY = "MOBILEFLASHCARDS:DECKS";
 
 export async function getDecksFromDB() {
   try {
-    // await AsyncStorage.removeItem(DECKS_STORAGE_KEY);
+    await AsyncStorage.removeItem(DECKS_STORAGE_KEY);
     const storeResults = await AsyncStorage.getItem(DECKS_STORAGE_KEY);
 
     if (storeResults === null) {

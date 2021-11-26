@@ -28,9 +28,19 @@ class AddDeck extends Component {
 
   handleSubmit = () => {
     const { text } = this.state;
-    const { dispatch } = this.props;
-    dispatch(addDeck(text));
-    saveDeckTitleToDB(text);
+    const { dispatch, decks } = this.props;
+    const allDecks = Object.keys(decks);
+    const allDecksLower = allDecks.map((deck) => deck.toLowerCase().trim());
+
+    if (allDecksLower.includes(text.trim())) {
+      alert(
+        `You already have a deck with the name ${text.trim()}, try a new name!`
+      );
+      return this.setState({ text: "" });
+    }
+
+    dispatch(addDeck(text.trim()));
+    saveDeckTitleToDB(text.trim());
 
     //TODO: navigate to home
     this.setState({ text: "" });
@@ -95,7 +105,7 @@ const styles = StyleSheet.create({
 });
 function mapStateToProps(state) {
   return {
-    state,
+    decks: state,
   };
 }
 

@@ -23,12 +23,13 @@ class AddCard extends Component {
 
   componentDidMount() {
     const { title } = this.props.route.params;
-    console.log(title);
+
     this.setTitle(title);
   }
 
   setTitle = (title) => {
     if (!title) return;
+    title = title.toLowerCase();
     this.props.navigation.setOptions({
       title: `Add new card to ${title}`,
     });
