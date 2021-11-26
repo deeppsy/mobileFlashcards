@@ -55,7 +55,7 @@ export async function removeDeckFromDB(key) {
   }
 }
 
-export async function addCardToDeck(title, card) {
+export async function addCardToDeckDB(title, card) {
   try {
     const res = await AsyncStorage.getItem(DECKS_STORAGE_KEY);
     const data = JSON.parse(res);

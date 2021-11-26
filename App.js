@@ -1,6 +1,7 @@
+import "react-native-gesture-handler";
 import { StatusBar } from "expo-status-bar";
 import React, { Component } from "react";
-import { ScrollView, Text, View } from "react-native";
+import { View, Dimensions, StyleSheet } from "react-native";
 import { createStore } from "redux";
 import { Provider } from "react-redux";
 import Constants from "expo-constants";
@@ -10,10 +11,14 @@ import { AntDesign, Ionicons } from "@expo/vector-icons";
 
 import DeckList from "./components/DeckList";
 import AddDeck from "./components/AddDeck";
+import AddCard from "./components/AddCard";
+import Quiz from "./components/Quiz";
+import DeckDetail from "./components/DeckDetail";
 
 import reducer from "./reducers";
 import applyMiddleware from "./middlewares";
 import { colors, purple, white } from "./utils/colors";
+import { createStackNavigator } from "@react-navigation/stack";
 
 function UdaciStatusBar({ backgroundColor, ...props }) {
   return (
@@ -72,6 +77,74 @@ const TabNavigatorConfig = {
 
 const Tab = createBottomTabNavigator();
 
+const TabNav = () => (
+  <Tab.Navigator {...TabNavigatorConfig}>
+    <Tab.Screen {...RouteConfigs["DeckList"]} />
+    <Tab.Screen {...RouteConfigs["AddDeck"]} />
+  </Tab.Navigator>
+);
+
+// Config for StackNav
+const StackNavigatorConfig = {
+  screenOptions: {
+    headerMode: "screen",
+  },
+};
+const StackConfig = {
+  TabNav: {
+    name: "Home",
+    component: TabNav,
+    options: { headerShown: false },
+  },
+  DeckDetail: {
+    name: "DeckDetail",
+    component: DeckDetail,
+    options: {
+      headerTintColor: white,
+      headerStyle: {
+        backgroundColor: purple,
+      },
+      headerTitleStyle: { width: Dimensions.get("window").width },
+      title: "Deck Detail",
+    },
+  },
+
+  Quiz: {
+    name: "Quiz",
+    component: Quiz,
+    options: {
+      headerTintColr: white,
+      headerStyle: {
+        backgroundColor: purple,
+      },
+      headerTitleStyle: { width: Dimensions.get("window").width },
+      title: "Quiz",
+    },
+  },
+  AddCard: {
+    name: "AddCard",
+    component: AddCard,
+    options: {
+      headerTintColr: white,
+      headerStyle: {
+        backgroundColor: purple,
+      },
+      headerTitleStyle: { width: Dimensions.get("window").width },
+      title: "Add Card",
+    },
+  },
+};
+
+const Stack = createStackNavigator();
+const MainNav = () => (
+  <Stack.Navigator {...StackNavigatorConfig}>
+    <Stack.Screen {...StackConfig["TabNav"]} />
+    <Stack.Screen {...StackConfig["DeckDetail"]} />
+    <Stack.Screen {...StackConfig["AddCard"]} />
+    <Stack.Screen {...StackConfig["Quiz"]} />
+  </Stack.Navigator>
+);
+
 class App extends Component {
   render() {
     const store = createStore(reducer, applyMiddleware);
@@ -84,10 +157,7 @@ class App extends Component {
           />
 
           <NavigationContainer>
-            <Tab.Navigator {...TabNavigatorConfig}>
-              <Tab.Screen {...RouteConfigs["DeckList"]} />
-              <Tab.Screen {...RouteConfigs["AddDeck"]} />
-            </Tab.Navigator>
+            <MainNav />
           </NavigationContainer>
         </View>
       </Provider>

@@ -1,4 +1,8 @@
-import { getDecksFromDB, saveDeckTitleToDB } from "../utils/api";
+import {
+  getDecksFromDB,
+  saveDeckTitleToDB,
+  addCardToDeckDB,
+} from "../utils/api";
 export const RECEIVE_DECKS = "RECEIVE_DECKS";
 export const ADD_DECK = "ADD_DECK";
 export const REMOVE_DECK = "REMOVE_DECK";
@@ -19,12 +23,6 @@ export function addDeck(title) {
   };
 }
 
-export function handleAddDeck(title) {
-  return (dispatch) => {
-    return saveDeckTitleToDB(title);
-  };
-}
-
 export function removeDeck(id) {
   return {
     type: REMOVE_DECK,
@@ -35,10 +33,11 @@ export function removeDeck(id) {
 export function addCardToDeck(deckId, card) {
   return {
     type: ADD_CARD,
-    deck,
+    deckId,
     card,
   };
 }
+
 export function resetStore() {
   return {
     type: RESET_STORE,

@@ -14,7 +14,6 @@ import {
 import { connect } from "react-redux";
 import { addDeck } from "../actions";
 import { saveDeckTitleToDB } from "../utils/api";
-import { handleAddDeck } from "../actions";
 
 class AddDeck extends Component {
   state = {
@@ -30,9 +29,8 @@ class AddDeck extends Component {
   handleSubmit = () => {
     const { text } = this.state;
     const { dispatch } = this.props;
-
-    dispatch(handleAddDeck(text));
     dispatch(addDeck(text));
+    saveDeckTitleToDB(text);
 
     //TODO: navigate to home
     this.setState({ text: "" });
@@ -78,7 +76,7 @@ const styles = StyleSheet.create({
   inner: {
     padding: 24,
     flex: 1,
-    justifyContent: "space-around",
+    justifyContent: "flex-start",
   },
   header: {
     fontSize: 36,

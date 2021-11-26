@@ -4,28 +4,33 @@ import { connect } from "react-redux";
 import { colors } from "../utils/colors";
 
 class Deck extends Component {
+  // static navigationOptions = ({ navigation }) => {
+  //   return {
+  //     title: navigation.getParam("title", "Deck"),
+  //   };
+  // };
+
   render() {
-    const { deck } = this.props;
+    const { title, questionsNum } = this.props;
+
     return (
       <View style={styles.deckContainer}>
         <View>
-          <Text style={styles.deckText}>{deck.title}</Text>
+          <Text style={styles.deckText}>{title}</Text>
         </View>
 
-        {deck.questions.length === 0 && (
+        {questionsNum === 0 && (
           <View>
-            <Text style={styles.cardText}>
-              {deck.questions.length === 0 && "No cards created yet!"}
-            </Text>
+            <Text style={styles.cardText}>{"No cards created yet!"}</Text>
           </View>
         )}
 
-        {deck.questions.length > 0 && (
+        {questionsNum > 0 && (
           <View>
             <Text style={styles.cardText}>
-              {deck.questions.length && deck.questions.length === 1
-                ? `${deck.questions.length} card`
-                : `${deck.questions.length} cards`}
+              {questionsNum === 1
+                ? `${questionsNum} card`
+                : `${questionsNum} cards`}
             </Text>
           </View>
         )}
@@ -38,6 +43,8 @@ const styles = StyleSheet.create({
   deckContainer: {
     alignItems: "center",
     justifyContent: "center",
+    borderColor: "pink",
+    borderWidth: 5,
 
     marginBottom: 10,
   },

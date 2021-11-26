@@ -8,36 +8,65 @@ import {
   StyleSheet,
   TouchableOpacity,
 } from "react-native";
+import { ScrollView } from "react-native-gesture-handler";
 import { connect } from "react-redux";
 import { handleInitialData } from "../actions";
 import { colors } from "../utils/colors";
 import Deck from "./Deck";
 
-const Item = ({ deck }) => (
-  <TouchableOpacity style={styles.item}>
-    <Deck deckId={deck} />
-  </TouchableOpacity>
-);
+// const Item = ({ deck }) => (
+//   <TouchableOpacity style={styles.item}>
+//     <Deck deckId={deck} />
+//   </TouchableOpacity>
+// );
 
 class AddDeck extends Component {
   componentDidMount() {
     this.props.handleInitialData();
   }
 
-  renderItem = ({ item }) => <Item deck={item.title} />;
+  // renderItem = ({ item }) => <Item deck={item.title} />;
   render() {
+    const { decks, navigation } = this.props;
     const DATA = Object.values(this.props.decks);
 
     return (
-      <SafeAreaView style={styles.container}>
-        <Text style={styles.title}>Mobile FlashCards</Text>
-        <FlatList
-          data={DATA}
-          renderItem={this.renderItem}
-          keyExtractor={(item) => item.title}
-        />
-      </SafeAreaView>
+      <ScrollView>
+        {decks &&
+          DATA.map((newDeck) => {
+            const deck = decks[newDeck["title"]];
+
+            return (
+              <TouchableOpacity
+                onPress={() => {
+                  navigation.navigate("DeckDetail", {
+                    title: deck.title,
+                    questionsNum: deck.questions.length,
+                  });
+                }}
+                key={deck.title}
+              >
+                <Deck
+                  title={deck.title}
+                  questionsNum={deck.questions.length}
+                  key={deck.title}
+                />
+              </TouchableOpacity>
+            );
+          })}
+      </ScrollView>
     );
+
+    // return (
+    //   <SafeAreaView style={styles.container}>
+    //     <Text style={styles.title}>Mobile FlashCards</Text>
+    //     <FlatList
+    //       data={DATA}
+    //       renderItem={this.renderItem}
+    //       keyExtractor={(item) => item.title}
+    //     />
+    //   </SafeAreaView>
+    // );
   }
 }
 
