@@ -57,22 +57,18 @@ export async function removeDeckFromDB(key) {
 
 export async function addCardToDeckDB(title, card) {
   try {
-    const res = await AsyncStorage.getItem(DECKS_STORAGE_KEY);
-    const data = JSON.parse(res);
-    const deck = data[title];
+    const deck = await getDeckFromDB(title);
 
-    const updatedQuestions = [...deck.questions, card];
-    return await AsyncStorage.mergeItem(
+    await AsyncStorage.mergeItem(
       DECKS_STORAGE_KEY,
       JSON.stringify({
         [title]: {
-          title,
-          quuestions: updatedQuestions,
+          questions: [...deck.questions].concat(card),
         },
       })
     );
-  } catch (e) {
-    console.warn(`Unable to add new card to deck ${title} `, e);
+  } catch (err) {
+    console.log(err);
   }
 }
 

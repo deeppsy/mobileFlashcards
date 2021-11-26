@@ -23,11 +23,11 @@ class AddCard extends Component {
 
   handleSubmit = () => {
     const { title: deckId } = this.props.route.params;
-    const { question, answer } = this.state;
+
     const { dispatch } = this.props;
 
     dispatch(addCardToDeck(deckId, this.state));
-    addCardToDeckDB(deckId, { question, answer });
+    addCardToDeckDB(deckId, this.state);
 
     //TODO: navigate to home
     this.setState({ question: "", answer: "" });
