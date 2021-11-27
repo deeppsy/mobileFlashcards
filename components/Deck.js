@@ -4,12 +4,6 @@ import { connect } from "react-redux";
 import { colors } from "../utils/colors";
 
 class Deck extends Component {
-  // static navigationOptions = ({ navigation }) => {
-  //   return {
-  //     title: navigation.getParam("title", "Deck"),
-  //   };
-  // };
-
   render() {
     const { title, questionsNum } = this.props;
 
@@ -58,8 +52,9 @@ const styles = StyleSheet.create({
   },
 });
 
-function mapStateToProps(state, { deckId }) {
-  const deck = state[deckId];
+function mapStateToProps(state, { title }) {
+  const deck = state[title];
+
   return { deck };
 }
 

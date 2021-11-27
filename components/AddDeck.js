@@ -32,7 +32,7 @@ class AddDeck extends Component {
     const allDecks = Object.keys(decks);
     const allDecksLower = allDecks.map((deck) => deck.toLowerCase().trim());
 
-    if (allDecksLower.includes(text.trim())) {
+    if (allDecksLower.includes(text.toLowerCase().trim())) {
       alert(
         `You already have a deck with the name ${text.trim()}, try a new name!`
       );
