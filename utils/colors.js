@@ -19,6 +19,7 @@ export const colors = {
     MaximumBluePurple: "#bdb2ff",
     Mauve: "#ffc6ff",
     BabyPowder: "#fffffc",
+    red: "#B20000",
   },
 };
 

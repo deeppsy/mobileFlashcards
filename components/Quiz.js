@@ -2,13 +2,7 @@ import React, { Component } from "react";
 import { StyleSheet, Text, View, ScrollView, Button } from "react-native";
 import MyButton from "./Button";
 import { colors } from "../utils/colors";
-import {
-  ksuPurple,
-  lavenderMist,
-  russianViolet,
-  red,
-  green,
-} from "../utils/text";
+import { clearLocalNotification, setLocalNotification } from "../utils/helpers";
 
 import { connect } from "react-redux";
 
@@ -67,6 +61,7 @@ class Quiz extends Component {
     const { navigation } = this.props;
 
     if (questions.length && currentQuestion === questions.length) {
+      clearLocalNotification().then(setLocalNotification());
       //display quiz results
       return (
         <View style={styles.container}>
@@ -82,7 +77,7 @@ class Quiz extends Component {
               { color: colors.foregroundColors.lemonMeringue },
             ]}
           >
-            Your percentage was{" "}
+            Your percentage was
             {Math.round((totalCorrect / questions.length) * 100)}%
           </Text>
           <MyButton
@@ -131,18 +126,18 @@ class Quiz extends Component {
             </Text>
 
             <Button
-              color={red}
+              color={colors.backgroundColors.red}
               title={viewFront ? "Show Answer?" : " Show Question?"}
               onPress={this.flipCard}
             />
             <MyButton
-              bg={green}
+              bg={colors.foregroundColors.green}
               title="Correct"
               onPress={this.correct}
               textColor="white"
             />
             <MyButton
-              bg={red}
+              bg={colors.backgroundColors.red}
               title="Incorrect"
               onPress={this.incorrect}
               textColor="white"

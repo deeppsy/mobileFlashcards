@@ -17,7 +17,8 @@ import DeckDetail from "./components/DeckDetail";
 
 import reducer from "./reducers";
 import applyMiddleware from "./middlewares";
-import { colors, purple, white } from "./utils/colors";
+import { colors } from "./utils/colors";
+import { setLocalNotification } from "./utils/helpers";
 import { createStackNavigator } from "@react-navigation/stack";
 
 function UdaciStatusBar({ backgroundColor, ...props }) {
@@ -57,6 +58,7 @@ const TabNavigatorConfig = {
   },
   initialRouteName: "DeckList",
   backBehavior: "history",
+  headerShown: false,
   screenOptions: {
     tabBarActiveTintColor: colors.foregroundColors.maximumRed,
     tabBarInactiveTintColor: "black",
@@ -146,6 +148,10 @@ const MainNav = () => (
 );
 
 class App extends Component {
+  componentDidMount() {
+    setLocalNotification();
+  }
+
   render() {
     const store = createStore(reducer, applyMiddleware);
     return (
