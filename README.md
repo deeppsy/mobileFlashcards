@@ -6,9 +6,6 @@ It uses React Native, Expo, Redux, & React Navigation.
 
 This app is the third of three projects required for [Udacity's React Nanodegree program](https://www.udacity.com/course/react-nanodegree--nd019).
 
-- Live Demo: [Mobile Flashcards on Expo](https://expo.io/@james-priest/mobile-flashcards)
-- Code Notes: [Step-by-step walk-though of how this project was built](https://james-priest.github.io/mobile-flashcards/)
-
 ## Installation
 
 Clone the repository, change directories, and use npm or yarn to install the dependencies.
