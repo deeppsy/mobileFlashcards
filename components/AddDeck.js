@@ -42,7 +42,9 @@ class AddDeck extends Component {
     dispatch(addDeck(text.trim()));
     saveDeckTitleToDB(text.trim());
 
-    //TODO: navigate to home
+    this.props.navigation.navigate("DeckDetail", {
+      title: text.trim(),
+    });
     this.setState({ text: "" });
   };
   render() {

@@ -49,7 +49,8 @@ export async function removeDeckFromDB(key) {
     const data = JSON.parse(res);
     data[key] = undefined;
     delete data[key];
-    AsyncStorage.setItem(DECKS_STORAGE_KEY, JSON.stringify(data));
+    await AsyncStorage.setItem(DECKS_STORAGE_KEY, JSON.stringify(data));
+    console.log("successfully deleted that deck");
   } catch (e) {
     console.warn(`unable to remove deck ${key}`, e);
   }

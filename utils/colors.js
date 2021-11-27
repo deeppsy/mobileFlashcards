@@ -5,6 +5,9 @@ export const colors = {
     orange: "#f77f00",
     maximumYellowRed: "#fcbf49",
     lemonMeringue: "#eae2b7",
+    green: "green",
+    blue: "blue",
+    russianViolet: "#4B1D47",
   },
   backgroundColors: {
     LightPink: "#ffadad",

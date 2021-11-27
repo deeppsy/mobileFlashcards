@@ -37,18 +37,18 @@ const styles = StyleSheet.create({
   deckContainer: {
     alignItems: "center",
     justifyContent: "center",
-    borderColor: "pink",
-    borderWidth: 5,
-
-    marginBottom: 10,
+    backgroundColor: colors.backgroundColors.MaximumBluePurple,
+    margin: 20,
+    borderRadius: 20,
   },
   deckText: {
     fontSize: 28,
-    color: "green",
+    color: colors.foregroundColors.green,
+    padding: 10,
   },
   cardText: {
     fontSize: 18,
-    color: colors.foregroundColors.orange,
+    color: colors.foregroundColors.lemonMeringue,
   },
 });
 

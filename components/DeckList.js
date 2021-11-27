@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-import { StyleSheet, TouchableOpacity } from "react-native";
+import { StyleSheet, TouchableOpacity, Text } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import { connect } from "react-redux";
 import { handleInitialData } from "../actions";
@@ -17,7 +17,8 @@ class AddDeck extends Component {
     const DATA = Object.values(this.props.decks);
 
     return (
-      <ScrollView>
+      <ScrollView style={styles.container}>
+        <Text style={styles.title}>Mobile Flashcards</Text>
         {decks &&
           DATA.map((newDeck) => {
             const deck = decks[newDeck["title"]];
@@ -27,7 +28,6 @@ class AddDeck extends Component {
                 onPress={() => {
                   navigation.navigate("DeckDetail", {
                     title: deck.title,
-                    questionsNum: deck.questions.length,
                   });
                 }}
                 key={deck.title}
@@ -50,18 +50,13 @@ const styles = StyleSheet.create({
     flex: 1,
     marginVertical: 10,
   },
-  item: {
-    backgroundColor: colors.backgroundColors.TeaGreen,
-    justifyContent: "center",
-    alignItems: "center",
-    padding: 20,
-    marginVertical: 8,
-    marginHorizontal: 16,
-  },
+
   title: {
     fontSize: 32,
     textAlign: "center",
     color: colors.foregroundColors.maximumRed,
+    marginVertical: 10,
+    padding: 5,
   },
 });
 

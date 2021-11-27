@@ -1,13 +1,23 @@
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { connect } from "react-redux";
-import MyButton from "./Button";
+import Button from "./Button";
+import { removeDeck } from "../actions";
+import { removeDeckFromDB } from "../utils/api";
+import { colors } from "../utils/colors";
 
 class DeckDetail extends React.Component {
   componentDidMount() {
     const { title } = this.props.route.params;
 
     this.setTitle(title);
+  }
+  shouldComponentUpdate(nextProps) {
+    // To make sure the deck doesn't re render when the item gets deleted
+    const { title } = this.props.route.params;
+
+    // return false;
+    return nextProps.decks[title] !== undefined;
   }
 
   setTitle = (title) => {
@@ -19,7 +29,7 @@ class DeckDetail extends React.Component {
 
   render() {
     const { navigation } = this.props;
-    const { title, questionsNum } = this.props.route.params;
+    const { title } = this.props.route.params;
 
     const noOfQuestions = this.props.decks[title].questions.length;
 
@@ -29,23 +39,36 @@ class DeckDetail extends React.Component {
         <Text style={styles.deckSubTitle}>
           {noOfQuestions} {noOfQuestions === 1 ? "card" : "cards"}
         </Text>
-        <MyButton
-          color={"black"}
+        <Button
+          textColor="white"
           title="Add Card"
-          outline
+          bg="blue"
           onPress={() => {
             navigation.navigate("AddCard", {
               title,
             });
           }}
         />
-        <MyButton
-          color={"black"}
+        <Button
+          textColor="white"
+          bg="green"
           title="Start Quiz"
           onPress={() => {
             navigation.navigate("Quiz", {
               title,
             });
+          }}
+        />
+
+        <Button
+          textColor="white"
+          bg="red"
+          title="Delete Deck?"
+          onPress={() => {
+            navigation.navigate("Home");
+            this.props.dispatch(removeDeck(title));
+            removeDeckFromDB(title);
+            alert("Deck deleted successfully");
           }}
         />
       </View>
@@ -56,18 +79,23 @@ class DeckDetail extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: colors.backgroundColors.MaximumBluePurple,
+    margin: 50,
+    borderRadius: 20,
 
     alignItems: "center",
   },
   deckTitle: {
-    fontSize: 30,
+    fontSize: 50,
     textAlign: "center",
+    color: colors.foregroundColors.green,
 
     paddingTop: 80,
   },
   deckSubTitle: {
     fontSize: 20,
     textAlign: "center",
+    color: colors.foregroundColors.lemonMeringue,
 
     paddingBottom: 60,
   },

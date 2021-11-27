@@ -43,7 +43,7 @@ class AddCard extends Component {
     dispatch(addCardToDeck(deckId, this.state));
     addCardToDeckDB(deckId, this.state);
 
-    //TODO: navigate to home
+    this.props.navigation.goBack();
     this.setState({ question: "", answer: "" });
   };
   render() {
@@ -99,7 +99,6 @@ const styles = StyleSheet.create({
   inner: {
     padding: 24,
     flex: 1,
-    justifyContent: "space-around",
   },
   header: {
     fontSize: 36,

@@ -36,7 +36,7 @@ const RouteConfigs = {
       tabBarIcon: ({ color, size }) => (
         <AntDesign name="home" size={size} color={color} />
       ),
-      title: "Decks",
+      title: "Home",
     },
   },
   AddDeck: {
@@ -100,9 +100,9 @@ const StackConfig = {
     name: "DeckDetail",
     component: DeckDetail,
     options: {
-      headerTintColor: white,
+      headerTintColor: "black",
       headerStyle: {
-        backgroundColor: purple,
+        backgroundColor: colors.backgroundColors.BabyPowder,
       },
       headerTitleStyle: { width: Dimensions.get("window").width },
       title: "Deck Detail",
@@ -113,9 +113,9 @@ const StackConfig = {
     name: "Quiz",
     component: Quiz,
     options: {
-      headerTintColr: white,
+      headerTintColor: "black",
       headerStyle: {
-        backgroundColor: purple,
+        backgroundColor: colors.backgroundColors.BabyPowder,
       },
       headerTitleStyle: { width: Dimensions.get("window").width },
       title: "Quiz",
@@ -125,9 +125,9 @@ const StackConfig = {
     name: "AddCard",
     component: AddCard,
     options: {
-      headerTintColr: white,
+      headerTintColor: "black",
       headerStyle: {
-        backgroundColor: purple,
+        backgroundColor: colors.backgroundColors.BabyPowder,
       },
       headerTitleStyle: { width: Dimensions.get("window").width },
       title: "Add Card",

@@ -1,63 +1,33 @@
 import React from "react";
-import { TouchableOpacity, Text, StyleSheet, Platform } from "react-native";
+import { TouchableOpacity, Text, StyleSheet } from "react-native";
 
-function MyButton({ title, color, onPress, outline, disabled }) {
-  const buttonStyles = [styles.button];
-  const textStyles = [styles.text];
+class Button extends React.Component {
+  render() {
+    const { textColor, onPress, title, bg } = this.props;
 
-  if (color && !outline) {
-    buttonStyles.push({ backgroundColor: color });
-  } else if (color && outline) {
-    textStyles.push({ color: color });
-    textStyles.push({ borderWidth: 1 });
-    textStyles.push({ borderStyle: "solid" });
-    textStyles.push({ borderColor: color });
+    return (
+      <TouchableOpacity
+        style={[styles.button, { backgroundColor: bg }]}
+        onPress={onPress}
+      >
+        <Text style={[styles.text, { color: textColor }]}>{title}</Text>
+      </TouchableOpacity>
+    );
   }
-  if (disabled) {
-    buttonStyles.push({ opacity: 0.3 });
-  }
-
-  return (
-    <TouchableOpacity
-      style={buttonStyles}
-      disabled={disabled}
-      onPress={onPress}
-    >
-      <Text style={textStyles}>{title}</Text>
-    </TouchableOpacity>
-  );
 }
 
 const styles = StyleSheet.create({
-  button: Platform.select({
-    ios: {
-      borderRadius: 2,
-      marginVertical: 10,
-      marginHorizontal: "auto",
-    },
-    android: {
-      elevation: 4,
-      borderRadius: 2,
-      marginVertical: 10,
-      marginHorizontal: "auto",
-    },
-  }),
-  text: Platform.select({
-    ios: {
-      color: "white",
-      textAlign: "center",
-      paddingHorizontal: 40,
-      paddingVertical: 10,
-      fontSize: 18,
-    },
-    android: {
-      color: "white",
-      textAlign: "center",
-      paddingHorizontal: 40,
-      paddingVertical: 10,
-      fontWeight: "500",
-    },
-  }),
+  button: {
+    margin: 20,
+    padding: 10,
+    borderRadius: 30,
+    width: 250,
+  },
+
+  text: {
+    textAlign: "center",
+    fontSize: 15,
+  },
 });
 
-export default MyButton;
+export default Button;
