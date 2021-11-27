@@ -12,7 +12,7 @@ Clone the repository, change directories, and use npm or yarn to install the dep
 
 ```bash
 $ git clone https://github.com/deeppsy/mobileFlashcards.git
-$ cd mobile-flashcards
+$ cd mobileFlashcards
 $ expo start
 ```
 
