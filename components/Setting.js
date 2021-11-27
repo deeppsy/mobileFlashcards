@@ -9,7 +9,6 @@ import Button from "./Button";
 class Setting extends Component {
   onPress = () => {
     this.props.dispatch(resetStore());
-    console.log(this.props.decks);
 
     resetDecks();
     alert("Your App is back to original");
