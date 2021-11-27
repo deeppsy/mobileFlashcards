@@ -77,7 +77,7 @@ class Quiz extends Component {
               { color: colors.foregroundColors.lemonMeringue },
             ]}
           >
-            Your percentage was
+            Your percentage was{" "}
             {Math.round((totalCorrect / questions.length) * 100)}%
           </Text>
           <MyButton
