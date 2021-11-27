@@ -75,7 +75,8 @@ export async function addCardToDeckDB(title, card) {
 
 export async function resetDecks() {
   try {
-    return await AsyncStorage.removeItem(DECKS_STORAGE_KEY);
+    await AsyncStorage.removeItem(DECKS_STORAGE_KEY);
+    console.log("removed all the decks");
   } catch (e) {
     return console.warn("Unable to reset decks");
   }

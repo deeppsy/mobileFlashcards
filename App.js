@@ -11,10 +11,10 @@ import { AntDesign, Ionicons } from "@expo/vector-icons";
 
 import DeckList from "./components/DeckList";
 import AddDeck from "./components/AddDeck";
+import Setting from "./components/Setting";
 import AddCard from "./components/AddCard";
 import Quiz from "./components/Quiz";
 import DeckDetail from "./components/DeckDetail";
-
 import reducer from "./reducers";
 import applyMiddleware from "./middlewares";
 import { colors } from "./utils/colors";
@@ -50,6 +50,17 @@ const RouteConfigs = {
       title: "Add Deck",
     },
   },
+
+  Setting: {
+    component: Setting,
+    name: "Setting",
+    options: {
+      tabBarIcon: ({ color, size }) => (
+        <AntDesign name="setting" size={size} color={color} />
+      ),
+      title: "Setting",
+    },
+  },
 };
 
 const TabNavigatorConfig = {
@@ -83,6 +94,7 @@ const TabNav = () => (
   <Tab.Navigator {...TabNavigatorConfig}>
     <Tab.Screen {...RouteConfigs["DeckList"]} />
     <Tab.Screen {...RouteConfigs["AddDeck"]} />
+    <Tab.Screen {...RouteConfigs["Setting"]} />
   </Tab.Navigator>
 );
 

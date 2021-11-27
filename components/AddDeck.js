@@ -14,6 +14,7 @@ import {
 import { connect } from "react-redux";
 import { addDeck } from "../actions";
 import { saveDeckTitleToDB } from "../utils/api";
+import { clearLocalNotification, setLocalNotification } from "../utils/helpers";
 
 class AddDeck extends Component {
   state = {
@@ -29,6 +30,8 @@ class AddDeck extends Component {
   handleSubmit = () => {
     const { text } = this.state;
     const { dispatch, decks } = this.props;
+
+    clearLocalNotification().then(setLocalNotification());
     const allDecks = Object.keys(decks);
     const allDecksLower = allDecks.map((deck) => deck.toLowerCase().trim());
 

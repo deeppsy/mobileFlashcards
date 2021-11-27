@@ -14,6 +14,7 @@ import {
 import { connect } from "react-redux";
 import { addCardToDeck } from "../actions";
 import { addCardToDeckDB } from "../utils/api";
+import { clearLocalNotification, setLocalNotification } from "../utils/helpers";
 
 class AddCard extends Component {
   state = {
@@ -39,6 +40,8 @@ class AddCard extends Component {
     const { title: deckId } = this.props.route.params;
 
     const { dispatch } = this.props;
+
+    clearLocalNotification().then(setLocalNotification());
 
     dispatch(addCardToDeck(deckId, this.state));
     addCardToDeckDB(deckId, this.state);
