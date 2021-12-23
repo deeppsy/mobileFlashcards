@@ -15,7 +15,7 @@ export async function getDecksFromDB() {
 
     return storeResults === null ? decks : JSON.parse(storeResults);
   } catch (err) {
-    console.log(err);
+    console.warn(err);
   }
 }
 export async function getDeckFromDB(id) {
@@ -37,7 +37,7 @@ export function saveDeckTitleToDB(title) {
       },
     })
   )
-    .then(console.log("successfully added a new title"))
+    .then(console.warn("successfully added a new title"))
     .catch((e) => {
       console.warn("unable to add title new deck to db ", e);
     });
@@ -50,7 +50,7 @@ export async function removeDeckFromDB(key) {
     data[key] = undefined;
     delete data[key];
     await AsyncStorage.setItem(DECKS_STORAGE_KEY, JSON.stringify(data));
-    console.log("successfully deleted that deck");
+    console.warn("successfully deleted that deck");
   } catch (e) {
     console.warn(`unable to remove deck ${key}`, e);
   }
@@ -69,14 +69,14 @@ export async function addCardToDeckDB(title, card) {
       })
     );
   } catch (err) {
-    console.log(err);
+    console.warn(err);
   }
 }
 
 export async function resetDecks() {
   try {
     await AsyncStorage.removeItem(DECKS_STORAGE_KEY);
-    console.log("removed all the decks");
+    console.warn("removed all the decks");
   } catch (e) {
     return console.warn("Unable to reset decks");
   }
